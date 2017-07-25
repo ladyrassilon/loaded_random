@@ -34,15 +34,39 @@ class RandomGen(object):
             previous_probability = probability_key
 
 
+    def get_random(self):
+        """
+        In current implementation just calls the standard random.random method
+        however you could now subclass this class, and just override with a secure
+        random number generator
+        """
+        next_random = random.random()
+        return next_random
+
     def next_num(self):
         """
         Returns one of the randomNums. When this method is called
         multiple times over a long period, it should return the
         numbers roughly with the initialized probabilities.
         """
-        next_random = random.random()
+        next_random = self.get_random()
         for prob in self._ordered_probabilities:
             if next_random <= prob:
                 return self._probability_map[prob]
 
         raise IndexError("This should never happen")
+
+
+try:
+    #This seems to be the least worst way to check if SystemRandom is available
+    test_random = random.SystemRandom().random()
+    class SystemRandomGen(RandomGen):
+        """
+        This is an example implementation using the SystemRandom generator 
+        as an alternative random number source.
+        """
+        def get_random(self):
+            next_random = random.SystemRandom().random()
+            return next_random
+except NotImplementedError:
+    SystemRandomGen = RandomGen
