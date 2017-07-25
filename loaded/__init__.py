@@ -1,4 +1,6 @@
 import random
+import logging
+log = logging.getLogger(__file__)
 
 class RandomGen(object):
     # Mutable objects should NEVER be exclusively defined in object scope, 
@@ -37,8 +39,8 @@ class RandomGen(object):
     def get_random(self):
         """
         In current implementation just calls the standard random.random method
-        however you could now subclass this class, and just override with a secure
-        random number generator
+        however you could now subclass this class, and just override with
+        a secure random number generator
         """
         next_random = random.random()
         return next_random
@@ -58,15 +60,19 @@ class RandomGen(object):
 
 
 try:
-    #This seems to be the least worst way to check if SystemRandom is available
+    #This seems to be the least worst way to check if
+    # SystemRandom is available
     test_random = random.SystemRandom().random()
     class SystemRandomGen(RandomGen):
         """
-        This is an example implementation using the SystemRandom generator 
+        This is an example implementation using the SystemRandom generator
         as an alternative random number source.
         """
         def get_random(self):
             next_random = random.SystemRandom().random()
             return next_random
+    raise NotImplementedError()
 except NotImplementedError:
+    log.warn(
+        "SystemRandom not available, using insecure random number generator")
     SystemRandomGen = RandomGen
