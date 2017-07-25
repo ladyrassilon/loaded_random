@@ -15,8 +15,8 @@ class RandomGen(object):
                 probabilities))
         try:
             test_total = sum(random_nums)
-        except Exception as e:
-            import ipdb; ipdb.set_trace()
+        except TypeError as e:
+            raise TypeError("One of the items in random number list is not a number")
         if len(random_nums) != len(probabilities):
             raise IndexError("{} is not the same length as {}".format(
                 random_nums, probabilities))

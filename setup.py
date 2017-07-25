@@ -13,6 +13,7 @@ setup(name="Loaded Random",
     author_email="contact@halfapenguin.com",
     long_description=long_description,
     keywords = ['statistics','random'],
+    test_suite='tests',
     classifiers=[
         "Development Status :: 3 - Alpha",
         "Programming Language :: Python :: 3.3",
