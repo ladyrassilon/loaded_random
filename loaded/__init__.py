@@ -1,27 +1,31 @@
-import random
 import logging
+import random
+
 log = logging.getLogger(__file__)
 
+
 class RandomGen(object):
-    # Mutable objects should NEVER be exclusively defined in object scope, 
+    # Mutable objects should NEVER be exclusively defined in object scope,
     # It MUST be overriden in instantiation.
     # http://blog.halfapenguin.com/posts/2015/07/23/mutable-global-scope-in-class-definitions/
     # Values that may be returned by next_num()
-    _random_nums = []
+    _random_nums = None
     # Probability of the occurence of random_nums
-    _probabilities = []
+    _probabilities = None
 
     def __init__(self, random_nums, probabilities):
         if sum(probabilities) != 1.0:
-            raise IndexError("Probabilities of {} do not add up to 1.0".format(
-                probabilities))
+            raise IndexError(
+                "Probabilities of {} do not add up to 1.0".format(probabilities)
+            )
         try:
             test_total = sum(random_nums)
         except TypeError as e:
             raise TypeError("One of the items in random number list is not a number")
         if len(random_nums) != len(probabilities):
-            raise IndexError("{} is not the same length as {}".format(
-                random_nums, probabilities))
+            raise IndexError(
+                "{} is not the same length as {}".format(random_nums, probabilities)
+            )
 
         self._random_nums = random_nums
         self._probabilities = probabilities
@@ -34,7 +38,6 @@ class RandomGen(object):
             self._probability_map[probability_key] = self._random_nums[idx]
             self._ordered_probabilities.append(probability_key)
             previous_probability = probability_key
-
 
     def get_random(self):
         """
@@ -60,19 +63,21 @@ class RandomGen(object):
 
 
 try:
-    #This seems to be the least worst way to check if
+    # This seems to be the least worst way to check if
     # SystemRandom is available
     test_random = random.SystemRandom().random()
+
     class SystemRandomGen(RandomGen):
         """
         This is an example implementation using the SystemRandom generator
         as an alternative random number source.
         """
+
         def get_random(self):
             next_random = random.SystemRandom().random()
             return next_random
+
     raise NotImplementedError()
 except NotImplementedError:
-    log.warn(
-        "SystemRandom not available, using insecure random number generator")
+    log.warn("SystemRandom not available, using insecure random number generator")
     SystemRandomGen = RandomGen
