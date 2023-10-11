@@ -83,3 +83,9 @@ Temporary Items
 
 #sftp configuration file
 sftp-config.json
+
+#.pyenv
+.python-version
+
+#.vscode
+.vscode/
