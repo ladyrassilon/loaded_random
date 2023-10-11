@@ -86,3 +86,6 @@ sftp-config.json
 
 # PyEnv version
 .python-version
+
+#.vscode
+.vscode/
