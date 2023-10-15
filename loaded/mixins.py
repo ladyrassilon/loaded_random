@@ -1,5 +1,6 @@
-from decimal import Decimal
 import random
+from decimal import Decimal
+
 
 class ListItemsOnly:
     # Mutable objects should NEVER be exclusively defined in object scope,
@@ -11,11 +12,10 @@ class ListItemsOnly:
     _probabilities = None
     _probability_map = None
     _ordered_probabilities = None
-    
+
     def _setup_probabilities(self, random_items, probabilities, total_probs):
         self._random_items = random_items
         self._probabilities = [Decimal(rn) / total_probs for rn in probabilities]
-    
 
         self._probability_map = {}
         self._ordered_probabilities = []
@@ -32,19 +32,24 @@ class ListItemsOnly:
             if random_element <= prob:
                 return self._probability_map[prob]
 
+
 class NumberOnly:
     def _additional_checks(self, random_items, probabilities, total_probs):
         super()._additional_checks(random_items, probabilities, total_probs)
         try:
-            test_total = sum(random_items)
-        except TypeError as e:
-            raise TypeError("One of the items in random number list is not a number")        
+            sum(random_items)
+        except TypeError:
+            raise TypeError(
+                "One of the items in random number list is not a number")
+
 
 class SimpleMap:
     pass
 
+
 class BestFitMap:
     pass
+
 
 class UseSystemRandom:
     def get_random_element(self):
