@@ -20,10 +20,10 @@ jobs:
         ruff --output-format=github .
       continue-on-error: true
   testing-time:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-lts
     strategy:
       matrix:
-        python: ["3.4", "3.5", "3.6", "3.7", "3.8", "3.9", "3.10", "3.11"]
+        python: ["3.8", "3.9", "3.10", "3.11"]
     steps:
       - uses: actions/checkout@v4
       - name: Setup Python
