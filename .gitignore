@@ -89,3 +89,6 @@ sftp-config.json
 
 #.vscode
 .vscode/
+
+#junit
+junit/
