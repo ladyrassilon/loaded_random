@@ -3,7 +3,7 @@ run-name: ${{ github.actor }} is testing out her code 🚀
 on: [push]
 jobs:
   linting-time:
-    runs-on: self-hosted
+    runs-on: ubuntu-lts
     steps:
     - uses: actions/checkout@v4
     - name: Set up Python
