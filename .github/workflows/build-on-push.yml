@@ -4,7 +4,6 @@ on: [push]
 jobs:
   linting-time:
     runs-on: self-hosted
-    container: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
     - name: Set up Python
@@ -22,7 +21,6 @@ jobs:
       continue-on-error: true
   testing-time:
     runs-on: ubuntu-lts
-    container: ubuntu-latest
     strategy:
       matrix:
         python: ["3.11"]
